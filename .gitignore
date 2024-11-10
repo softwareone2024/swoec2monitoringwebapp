@@ -1,0 +1,6 @@
+# Ignorar arquivos e pastas do macOS
+.DS_Store
+
+# Outros arquivos e pastas para ignorar
+node_modules/
+*.log
