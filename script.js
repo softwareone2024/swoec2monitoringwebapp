@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 accountInfo.textContent = `Conta: ${data.AccountName} (ID: ${data.AccountId}) - Região: ${data.Region}`;
                 accountSection.appendChild(accountInfo);
 
+                const tableContainer = document.createElement("div");
+                tableContainer.classList.add("table-container");
+
                 const table = document.createElement("table");
                 table.id = `instances-table-${data.AccountId}-${data.Region}`;  // Unique ID for each table
                 table.classList.add("instances-table");
@@ -74,10 +77,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     tableBody.appendChild(row);
                 });
 
-                accountSection.appendChild(table);
+                tableContainer.appendChild(table);
+                accountSection.appendChild(tableContainer);
                 document.getElementById("accounts-info").appendChild(accountSection);
 
-                // Initialize DataTables for this table
+                // Initialize DataTables for this table after it's appended to the DOM
                 $(`#${table.id}`).DataTable();
             })
             .catch(error => {
@@ -139,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    }    
+    }
 
     // Event listener for CSV download
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
