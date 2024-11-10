@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informações de Instâncias EC2</title>
+    
+    <!-- CSS for styling and DataTables -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
     <!-- Logo da AWS -->
@@ -17,19 +20,27 @@
         <img src="https://swoec2monitoringwebapp-fieg.s3.sa-east-1.amazonaws.com/SoftwareOne_Logo_Sml_RGB_Blk.png" alt="SoftwareONE Logo">
     </div>
 
-    <!-- Seção para Exibir Informações de Todas as Contas -->
+    <!-- Logo da FIEG -->
+    <div class="fieg-logo">
+        <img src="https://swoec2monitoringwebapp-fieg.s3.sa-east-1.amazonaws.com/FIEGLOGO.png" alt="FIEG Logo">
+    </div>    
+
+    <!-- Section for displaying EC2 instance information -->
     <div id="accounts-info" class="accounts-info">
         <h2>Informações das Instâncias EC2 por Conta e Região</h2>
         <h2>SESI-SENAI GO</h2>
-        <!-- Botão para Baixar Tabela em CSV -->
+        
+        <!-- Button to download table as CSV -->
         <button id="download-csv" onclick="downloadCSV()">Baixar Tabela em CSV</button>
     </div>
 
+    <!-- JavaScript libraries for DataTables and your custom script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="script.js"></script>
     <!-- Rodapé -->
     <footer>
         <p>Developed by Renan Bueno</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

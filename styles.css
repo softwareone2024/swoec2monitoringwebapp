@@ -32,6 +32,20 @@ body {
     height: auto;
 }
 
+/* Logo da FIEG no canto inferior esquerdo */
+.fieg-logo {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 120px;
+    opacity: 0.8;
+}
+
+.fieg-logo img {
+    width: 100%;
+    height: auto;
+}
+
 /* Rodapé */
 footer {
     text-align: center;
@@ -93,4 +107,36 @@ footer {
 
 .instances-table tr:hover {
     background-color: #e1f5fe;
+}
+body {
+    background-color: #f0f4f8;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* Logo styling */
+.aws-logo, .softwareone-logo {
+    text-align: center;
+}
+
+.account-section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+/* DataTables specific styling */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #0073bb;
+    color: #fff;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 0.5em;
 }

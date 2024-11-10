@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.json();
             })
             .then(data => {
-                // Criar seção para a conta e região
+                // Create section for account and region
                 const accountSection = document.createElement("div");
                 accountSection.classList.add("account-section");
 
@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 accountSection.appendChild(accountInfo);
 
                 const table = document.createElement("table");
+                table.id = `instances-table-${data.AccountId}-${data.Region}`;  // Unique ID for each table
                 table.classList.add("instances-table");
 
-                // Definindo o cabeçalho da tabela com todas as colunas
                 const tableHeader = `
                     <thead>
                         <tr>
@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const tableBody = table.querySelector("tbody");
 
-                // Preencher tabela com dados das instâncias
                 data.Instances.forEach(instance => {
                     const row = document.createElement("tr");
 
@@ -77,13 +76,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 accountSection.appendChild(table);
                 document.getElementById("accounts-info").appendChild(accountSection);
+
+                // Initialize DataTables for this table
+                $(`#${table.id}`).DataTable();
             })
             .catch(error => {
                 console.error(error.message);
             });
     }
 
-    // Lista dos arquivos JSON no bucket
     const fileNames = [
         'instance-info-927341496435-us-east-1.json',
         'instance-info-065499236641-sa-east-1.json',
@@ -95,30 +96,40 @@ document.addEventListener("DOMContentLoaded", function() {
         'instance-info-784883692064-sa-east-1.json'
     ];
 
-    // Carregar dados de cada arquivo
     fileNames.forEach(fileName => {
         loadInstanceData(fileName);
     });
 
-    // Função para converter tabela HTML em CSV e baixar
     function downloadCSV() {
         let csv = [];
-        const tables = document.querySelectorAll(".instances-table");
-
-        tables.forEach(table => {
-            const rows = table.querySelectorAll("tr");
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll("th, td");
-                let rowContent = Array.from(cells).map(cell => `"${cell.innerText}"`);
-                csv.push(rowContent.join(","));
-            });
-        });
-
-        // Converte o array CSV em uma string
-        const csvContent = csv.join("\n");
         
-        // Cria um blob para o arquivo CSV e aciona o download
+        // Loop through each DataTable and gather data
+        $(".instances-table").each(function() {
+            let table = $(this).DataTable(); // Get DataTable instance for each table
+            let tableData = table.rows({ search: 'applied' }).data(); // Get all rows with search applied
+    
+            // Header row
+            const headers = [];
+            $(this).find("thead th").each(function() {
+                headers.push(`"${$(this).text()}"`);
+            });
+            csv.push(headers.join(","));
+    
+            // Table rows
+            for (let i = 0; i < tableData.length; i++) {
+                const row = tableData[i];
+                const rowData = [];
+                for (let j = 0; j < row.length; j++) {
+                    rowData.push(`"${row[j]}"`);
+                }
+                csv.push(rowData.join(","));
+            }
+        });
+    
+        // Convert CSV array to string
+        const csvContent = csv.join("\n");
+    
+        // Create a Blob and trigger download
         const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -128,8 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    }
+    }    
 
-    // Adiciona o evento de clique ao botão de download
+    // Event listener for CSV download
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
 });
