@@ -28,9 +28,10 @@ def lambda_handler(event, context):
             # Obter nome da instância a partir das tags
             instance_name = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'Name'), "N/A")
             
-            # Obter as tags swoMonitor, swoBackup e verificar Start-Stop
+            # Obter as tags swoMonitor, swoBackup, swoPatch e verificar Start-Stop
             swo_monitor = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoMonitor'), "N/A")
             swo_backup = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoBackup'), "N/A")
+            swo_patch = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoPatch'), "N/A")
             start_stop = "Ativado" if any(tag['Key'] in ['Start', 'Shutdown'] for tag in instance.get('Tags', [])) else "Desativado"
 
             # Obter detalhes específicos da plataforma
@@ -91,6 +92,7 @@ def lambda_handler(event, context):
                 'SecurityNonCompliantCount': security_non_compliant_count,
                 'swoMonitor': swo_monitor,
                 'swoBackup': swo_backup,
+                'swoPatch': swo_patch,
                 'StartStop': start_stop
             })
 

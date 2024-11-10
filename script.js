@@ -7,28 +7,28 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Erro ao carregar as informaÃ§Ãµes das instÃ¢ncias do arquivo ${fileName}.`);
+                    throw new Error(`Erro ao carregar as informações das instâncias do arquivo ${fileName}.`);
                 }
                 return response.json();
             })
             .then(data => {
-                // Criar seÃ§Ã£o para a conta e regiÃ£o
+                // Criar seção para a conta e região
                 const accountSection = document.createElement("div");
                 accountSection.classList.add("account-section");
 
                 const accountInfo = document.createElement("h3");
-                accountInfo.textContent = `Conta: ${data.AccountName} (ID: ${data.AccountId}) - RegiÃ£o: ${data.Region}`;
+                accountInfo.textContent = `Conta: ${data.AccountName} (ID: ${data.AccountId}) - Região: ${data.Region}`;
                 accountSection.appendChild(accountInfo);
 
                 const table = document.createElement("table");
                 table.classList.add("instances-table");
 
-                // Definindo o cabeÃ§alho da tabela com todas as colunas
+                // Definindo o cabeçalho da tabela com todas as colunas
                 const tableHeader = `
                     <thead>
                         <tr>
-                            <th>ID da InstÃ¢ncia</th>
-                            <th>Nome da InstÃ¢ncia</th>
+                            <th>ID da Instância</th>
+                            <th>Nome da Instância</th>
                             <th>Tipo</th>
                             <th>Estado</th>
                             <th>Account</th>
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <th>Status do SSM</th>
                             <th>swoMonitor</th>
                             <th>swoBackup</th>
+                            <th>swoPatch</th>
                             <th>Start-Stop</th>
                             <th>Critical Non-Compliant</th>
                             <th>Security Non-Compliant</th>
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const tableBody = table.querySelector("tbody");
 
-                // Preencher tabela com dados das instÃ¢ncias
+                // Preencher tabela com dados das instâncias
                 data.Instances.forEach(instance => {
                     const row = document.createElement("tr");
 
@@ -65,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${instance.SSMStatus}</td>
                         <td>${instance.swoMonitor}</td>
                         <td>${instance.swoBackup}</td>
+                        <td>${instance.swoPatch}</td>
                         <td>${instance.StartStop}</td>
                         <td>${instance.CriticalNonCompliantCount}</td>
                         <td>${instance.SecurityNonCompliantCount}</td>
@@ -98,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loadInstanceData(fileName);
     });
 
-    // FunÃ§Ã£o para converter tabela HTML em CSV e baixar
+    // Função para converter tabela HTML em CSV e baixar
     function downloadCSV() {
         let csv = [];
         const tables = document.querySelectorAll(".instances-table");
@@ -128,6 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.removeChild(a);
     }
 
-    // Adiciona o evento de clique ao botÃ£o de download
+    // Adiciona o evento de clique ao botão de download
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
 });

@@ -1,12 +1,44 @@
-/* Centralizar e redimensionar a logo */
+/* Background */
+body {
+    background-color: #f0f4f8; /* Cor de fundo */
+    background-image: url('https://www.example.com/background-image.jpg'); /* Substitua pelo URL da imagem de fundo desejada */
+    background-size: cover;
+    background-attachment: fixed;
+    color: #333;
+}
+
+/* Centralizar e redimensionar a logo da AWS */
 .aws-logo {
     text-align: center;
     margin-bottom: 20px;
 }
 
 .aws-logo img {
-    width: 150px; /* Ajuste o tamanho conforme necessário */
+    width: 150px;
     height: auto;
+}
+
+/* Logo da SoftwareONE no canto inferior direito */
+.softwareone-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    opacity: 0.8;
+}
+
+.softwareone-logo img {
+    width: 100%;
+    height: auto;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
 }
 
 /* Estilo da Seção de Contas */
@@ -15,6 +47,8 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    background: rgba(255, 255, 255, 0.9); /* Fundo branco com transparência */
+    border-radius: 8px;
 }
 
 .account-section {
@@ -27,37 +61,23 @@
     background-color: #f9f9f9;
 }
 
-.account-section h3 {
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
 /* Estilo da Tabela */
-.table-container {
-    max-width: 100%;
-    overflow-x: auto;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
 .instances-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     margin-top: 10px;
-    table-layout: fixed; /* Define largura fixa para as colunas */
+    table-layout: fixed;
 }
 
 .instances-table th,
 .instances-table td {
-    padding: 8px 10px; /* Reduz o padding para diminuir a altura */
+    padding: 8px 10px;
     border: 1px solid #ddd;
-    white-space: nowrap; /* Impede a quebra de linha */
+    white-space: nowrap;
     overflow: hidden;
-    font-size: 12px; /* Reduz o tamanho da fonte */
-    line-height: 1.2; /* Diminui o espaçamento entre linhas */
+    font-size: 12px;
+    line-height: 1.2;
 }
 
 .instances-table th {
