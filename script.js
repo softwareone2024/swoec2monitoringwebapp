@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <th>Type</th>
                             <th>State</th>
                             <th>Account</th>
+                            <th>Account ID</th> <!-- Added Account ID column -->
                             <th>Region</th>
                             <th>Platform</th>
                             <th>Role</th>
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${instance.InstanceType}</td>
                         <td>${instance.State}</td>
                         <td>${instance.Account}</td>
+                        <td>${instance.AccountId}</td> <!-- Added AccountId here -->
                         <td>${instance.Region}</td>
                         <td>${instance.PlatformDetails}</td>
                         <td>${instance.Role}</td>
@@ -111,14 +113,14 @@ document.addEventListener("DOMContentLoaded", function() {
         $(".instances-table").each(function() {
             let table = $(this).DataTable(); // Get DataTable instance for each table
             let tableData = table.rows({ search: 'applied' }).data(); // Get all rows with search applied
-    
+        
             // Header row
             const headers = [];
             $(this).find("thead th").each(function() {
                 headers.push(`"${$(this).text()}"`);
             });
             csv.push(headers.join(","));
-    
+        
             // Table rows
             for (let i = 0; i < tableData.length; i++) {
                 const row = tableData[i];

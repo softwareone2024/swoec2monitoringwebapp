@@ -121,92 +121,98 @@ footer {
 
 /* Defina larguras específicas para colunas individuais */
 
-/* ID da instancia */
+/* Instance ID */
 .instances-table th:nth-child(1),
 .instances-table td:nth-child(1) {
     width: 100px;
 }
 
-/* Nome da Instância */
+/* Instance Name */
 .instances-table th:nth-child(2),
 .instances-table td:nth-child(2) {
     width: 120px;
 }
 
-/* Tipo */
+/* Type */
 .instances-table th:nth-child(3),
 .instances-table td:nth-child(3) {
     width: 50px;
 }
 
-/* Estado */
+/* State */
 .instances-table th:nth-child(4),
 .instances-table td:nth-child(4) {
     width: 50px;
 }
 
-/* Account */
+/* Account Name */
 .instances-table th:nth-child(5),
 .instances-table td:nth-child(5) {
     width: 50px;
 }
 
-/* Region */
+/* Account ID */
 .instances-table th:nth-child(6),
 .instances-table td:nth-child(6) {
+    width: 70px;
+}
+
+/* Region */
+.instances-table th:nth-child(7),
+.instances-table td:nth-child(7) {
     width: 50px;
 }
 
 /* Platform */
-.instances-table th:nth-child(7),
-.instances-table td:nth-child(7) {
-    width: 80px;
+.instances-table th:nth-child(8),
+.instances-table td:nth-child(8) {
+    width: 50px;
 }
 
 /* Role */
-.instances-table th:nth-child(8),
-.instances-table td:nth-child(8) {
-    width: 100px;
+.instances-table th:nth-child(9),
+.instances-table td:nth-child(9) {
+    width: 90px;
 }
 
 /* Status do SSM */
-.instances-table th:nth-child(9),
-.instances-table td:nth-child(9) {
-    width: 70px;
-}
-
-/* swoMonitor */
 .instances-table th:nth-child(10),
 .instances-table td:nth-child(10) {
     width: 60px;
 }
 
-/* swoBackup */
+/* swoMonitor */
 .instances-table th:nth-child(11),
 .instances-table td:nth-child(11) {
     width: 60px;
 }
 
-/* swoPatch */
+/* swoBackup */
 .instances-table th:nth-child(12),
 .instances-table td:nth-child(12) {
     width: 60px;
 }
 
-/* Start-Stop */
+/* swoPatch */
 .instances-table th:nth-child(13),
 .instances-table td:nth-child(13) {
     width: 60px;
 }
 
-/* Critical Non-Compliant */
+/* Start-Stop */
 .instances-table th:nth-child(14),
 .instances-table td:nth-child(14) {
+    width: 70px;
+}
+
+/* Critical Non-Compliant */
+.instances-table th:nth-child(15),
+.instances-table td:nth-child(15) {
     width: 100px;
 }
 
 /* Security Non-Compliant */
-.instances-table th:nth-child(15),
-.instances-table td:nth-child(15) {
+.instances-table th:nth-child(16),
+.instances-table td:nth-child(16) {
     width: 100px;
 }
