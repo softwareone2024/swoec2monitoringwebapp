@@ -32,7 +32,7 @@ def lambda_handler(event, context):
             swo_monitor = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoMonitor'), "N/A")
             swo_backup = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoBackup'), "N/A")
             swo_patch = next((tag['Value'] for tag in instance.get('Tags', []) if tag['Key'] == 'swoPatch'), "N/A")
-            start_stop = "Ativado" if any(tag['Key'] in ['Start', 'Shutdown'] for tag in instance.get('Tags', [])) else "Desativado"
+            start_stop = "Enabled" if any(tag['Key'] in ['Start', 'Shutdown'] for tag in instance.get('Tags', [])) else "Disabled"
 
             # Obter detalhes específicos da plataforma
             platform_details = instance.get('PlatformDetails', 'Platform Details Not Available')
@@ -51,32 +51,22 @@ def lambda_handler(event, context):
                     Filters=[{'Key': 'InstanceIds', 'Values': [instance_id]}]
                 )['InstanceInformationList']
                 ssm_status = ssm_instance_info[0]['PingStatus'] if ssm_instance_info else "Not Available"
-                
-                # Obter itens de compliance
-                compliance_items = ssm.list_compliance_items(
-                    ResourceIds=[instance_id],
-                    ResourceTypes=["ManagedInstance"],
-                    Filters=[{'Key': 'ComplianceType', 'Values': ['Patch']}]
-                )['ComplianceItems']
-                
-                # Contagem de non-compliance por severidade
-                for item in compliance_items:
-                    severity = item['Severity']
-                    status = item['Status']
-                    
-                    # Contagem para Critical Non-Compliant
-                    if severity == 'CRITICAL' and status == 'NON_COMPLIANT':
-                        critical_non_compliant_count += 1
-                        # Adiciona ao Security Non-Compliant, pois é uma falha crítica de segurança
-                        security_non_compliant_count += 1
-                    
-                    # Contagem para Security Non-Compliant (inclui itens HIGH e os CRITICAL já contados)
-                    elif severity == 'HIGH' and status == 'NON_COMPLIANT':
-                        security_non_compliant_count += 1
 
-            except Exception:
-                pass
-            
+                # Obter estados dos patches instalados e faltantes
+                patch_state = ssm.describe_instance_patch_states(
+                    InstanceIds=[instance_id]
+                )['InstancePatchStates']
+
+                if patch_state:
+                    for patch in patch_state:
+                        if patch['CriticalNonCompliantCount']:
+                            critical_non_compliant_count = patch['CriticalNonCompliantCount']
+                        if patch['SecurityNonCompliantCount']:
+                            security_non_compliant_count = patch['SecurityNonCompliantCount']
+
+            except Exception as e:
+                print(f"Erro ao obter compliance da instância {instance_id}: {str(e)}")
+
             # Adiciona os dados coletados ao array
             instance_info.append({
                 'InstanceId': instance_id,

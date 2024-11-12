@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 accountSection.classList.add("account-section");
 
                 const accountInfo = document.createElement("h3");
-                accountInfo.textContent = `Conta: ${data.AccountName} (ID: ${data.AccountId}) - Região: ${data.Region}`;
+                accountInfo.textContent = `Account: ${data.AccountName} (ID: ${data.AccountId}) - Region: ${data.Region}`;
                 accountSection.appendChild(accountInfo);
 
                 const tableContainer = document.createElement("div");
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 const tableHeader = `
                     <thead>
                         <tr>
-                            <th>ID da Instância</th>
-                            <th>Nome da Instância</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
+                            <th>Instance Id</th>
+                            <th>Instance Name</th>
+                            <th>Type</th>
+                            <th>State</th>
                             <th>Account</th>
                             <th>Region</th>
-                            <th>Platform Details</th>
+                            <th>Platform</th>
                             <th>Role</th>
                             <th>Status do SSM</th>
                             <th>swoMonitor</th>
