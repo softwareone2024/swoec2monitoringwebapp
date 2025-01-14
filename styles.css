@@ -1,107 +1,119 @@
-/* Background */
+/* General Body Styles */
 body {
     background-color: #f0f4f8;
-    background-image: url('https://www.example.com/background-image.jpg'); /* Substitua pelo URL da imagem de fundo desejada */
+    background-image: url('https://www.example.com/background-image.jpg'); /* Replace with your desired background image URL */
     background-size: cover;
     background-attachment: fixed;
     color: #333;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Centralizar e redimensionar a logo da AWS */
-.aws-logo {
+/* Header Styling */
+header {
     text-align: center;
-    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(0, 115, 187, 0.1);
+    border-bottom: 2px solid #0073bb;
+    position: relative; /* Allows positioning of logos inside header */
 }
 
-.aws-logo img {
-    width: 150px;
+/* Logos Container */
+.logos {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Center Logo */
+.logos img {
+    max-width: 120px;
     height: auto;
+    margin: 0;
 }
 
-/* Logo da SoftwareONE no canto inferior direito */
+/* Fixed Side Logos */
 .softwareone-logo {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 120px;
-    opacity: 0.8;
-}
-
-.softwareone-logo img {
-    width: 100%;
-    height: auto;
-}
-
-/* Logo da FIEG no canto inferior esquerdo */
-.fieg-logo {
-    position: fixed;
-    bottom: 20px;
+    position: absolute;
+    top: 50%;
     left: 20px;
-    width: 120px;
-    opacity: 0.8;
-}
-
-.fieg-logo img {
-    width: 100%;
+    transform: translateY(-50%);
+    max-width: 100px; /* Adjust for smaller logo size */
     height: auto;
+    opacity: 0.9;
 }
 
-/* Rodapé */
+.fieg-logo {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    max-width: 100px; /* Adjust for smaller logo size */
+    height: auto;
+    opacity: 0.9;
+}
+
+/* Footer Styles */
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
+    background-color: #0073bb;
+    color: white;
     font-size: 14px;
-    color: #666;
     margin-top: 20px;
 }
 
-/* Estilo da Seção de Contas */
+/* Main Section Styling */
 .accounts-info {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 40px auto;
     padding: 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Individual Account Section */
 .account-section {
-    margin: 20px auto;
+    margin: 20px 0;
     padding: 20px;
-    max-width: 100%;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    overflow-x: auto; /* Permite rolagem horizontal para tabelas largas */
+    background-color: #fff;
+    overflow-x: auto;
 }
 
-/* Centraliza a tabela com rolagem horizontal se necessário */
+/* Table Container */
 .table-container {
     max-width: 100%;
     overflow-x: auto;
-    margin: 0 auto;
+    margin: 20px 0;
     padding: 10px;
     box-sizing: border-box;
 }
 
-/* Estilo da Tabela */
+/* Table Styling */
 .instances-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    table-layout: fixed;
+    table-layout: auto;
+    font-size: 14px;
+    margin: 0 auto;
 }
 
 .instances-table th,
 .instances-table td {
-    padding: 8px 10px;
+    padding: 10px 15px;
     border: 1px solid #ddd;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 12px;
-    line-height: 1.2;
+    text-overflow: ellipsis;
 }
 
 .instances-table th {
@@ -109,110 +121,73 @@ footer {
     color: #ffffff;
     font-weight: bold;
     text-align: center;
+    position: sticky; /* Keeps header visible when scrolling */
+    top: 0;
+    z-index: 1;
 }
 
 .instances-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f7f7f7;
 }
 
 .instances-table tr:hover {
     background-color: #e1f5fe;
+    transition: background-color 0.3s ease-in-out;
 }
 
-/* Defina larguras específicas para colunas individuais */
-
-/* Instance ID */
+/* Column Widths */
 .instances-table th:nth-child(1),
-.instances-table td:nth-child(1) {
-    width: 100px;
-}
-
-/* Instance Name */
+.instances-table td:nth-child(1) { width: 120px; } /* Instance ID */
 .instances-table th:nth-child(2),
-.instances-table td:nth-child(2) {
-    width: 120px;
-}
-
-/* Type */
+.instances-table td:nth-child(2) { width: 150px; } /* Instance Name */
 .instances-table th:nth-child(3),
-.instances-table td:nth-child(3) {
-    width: 50px;
-}
-
-/* State */
+.instances-table td:nth-child(3) { width: 80px; }  /* Type */
 .instances-table th:nth-child(4),
-.instances-table td:nth-child(4) {
-    width: 50px;
-}
-
-/* Account Name */
+.instances-table td:nth-child(4) { width: 100px; } /* State */
 .instances-table th:nth-child(5),
-.instances-table td:nth-child(5) {
-    width: 50px;
-}
-
-/* Account ID */
+.instances-table td:nth-child(5) { width: 150px; } /* Account Name */
 .instances-table th:nth-child(6),
-.instances-table td:nth-child(6) {
-    width: 70px;
-}
-
-/* Region */
+.instances-table td:nth-child(6) { width: 120px; } /* Account ID */
 .instances-table th:nth-child(7),
-.instances-table td:nth-child(7) {
-    width: 50px;
-}
-
-/* Platform */
+.instances-table td:nth-child(7) { width: 100px; } /* Region */
 .instances-table th:nth-child(8),
-.instances-table td:nth-child(8) {
-    width: 50px;
-}
-
-/* Role */
+.instances-table td:nth-child(8) { width: 120px; } /* Platform */
 .instances-table th:nth-child(9),
-.instances-table td:nth-child(9) {
-    width: 90px;
-}
-
-/* Status do SSM */
+.instances-table td:nth-child(9) { width: 150px; } /* Role */
 .instances-table th:nth-child(10),
-.instances-table td:nth-child(10) {
-    width: 60px;
-}
-
-/* swoMonitor */
+.instances-table td:nth-child(10) { width: 100px; } /* Status do SSM */
 .instances-table th:nth-child(11),
-.instances-table td:nth-child(11) {
-    width: 60px;
-}
-
-/* swoBackup */
+.instances-table td:nth-child(11) { width: 100px; } /* swoMonitor */
 .instances-table th:nth-child(12),
-.instances-table td:nth-child(12) {
-    width: 60px;
-}
-
-/* swoPatch */
+.instances-table td:nth-child(12) { width: 100px; } /* swoBackup */
 .instances-table th:nth-child(13),
-.instances-table td:nth-child(13) {
-    width: 60px;
-}
-
-/* Start-Stop */
+.instances-table td:nth-child(13) { width: 100px; } /* swoPatch */
 .instances-table th:nth-child(14),
-.instances-table td:nth-child(14) {
-    width: 70px;
-}
-
-/* Critical Non-Compliant */
+.instances-table td:nth-child(14) { width: 120px; } /* Start-Stop */
 .instances-table th:nth-child(15),
-.instances-table td:nth-child(15) {
-    width: 100px;
+.instances-table td:nth-child(15) { width: 150px; } /* Critical Non-Compliant */
+.instances-table th:nth-child(16),
+.instances-table td:nth-child(16) { width: 150px; } /* Security Non-Compliant */
+
+/* Button Styling */
+button#download-csv {
+    display: block;
+    margin: 20px auto; /* Center the button */
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #0073bb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Security Non-Compliant */
-.instances-table th:nth-child(16),
-.instances-table td:nth-child(16) {
-    width: 100px;
+button#download-csv:hover {
+    background-color: #005c99;
+}
+
+button#download-csv:focus {
+    outline: none;
+    box-shadow: 0 0 5px 2px #0073bb;
 }
