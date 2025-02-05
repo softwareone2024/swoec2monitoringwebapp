@@ -72,7 +72,7 @@ Before deploying, ensure you have:
 
 In the bucket permissions, add the following CORS configuration:
 
-
+```
 [
     {
         "AllowedHeaders": ["*"],
@@ -81,13 +81,13 @@ In the bucket permissions, add the following CORS configuration:
         "ExposeHeaders": []
     }
 ]
-
+```
 ---
 
 ### 4. Bucket Policy Configuration 🔒
 
 Initial Policy: Allow public GET access:
-
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -99,9 +99,9 @@ Initial Policy: Allow public GET access:
         }
     ]
 }
-
+```
 	Note: After deploying CloudFormation, update the bucket policy to include permissions for Lambda functions to write to the bucket:
-
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -120,7 +120,7 @@ Initial Policy: Allow public GET access:
         // Additional statements for other accounts...
     ]
 }
-
+```
 ---
 
 ### 5. Upload Static Website Files 📤
