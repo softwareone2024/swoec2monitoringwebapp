@@ -1,53 +1,76 @@
-AWS EC2 Monitoring Web Application
+# AWS EC2 Monitoring Web Application 🚀
 
-This repository contains the code, CloudFormation templates, and documentation required to deploy the AWS EC2 Monitoring Web Application. This solution collects EC2 instance compliance data from multiple AWS accounts and displays it via a static website hosted on Amazon S3.
+This repository contains the code, CloudFormation templates, and documentation to deploy the **AWS EC2 Monitoring Web Application**. This solution collects EC2 instance compliance data from multiple AWS accounts and displays it on a static website hosted on Amazon S3.
 
-Table of Contents
-	•	Project Overview
-	•	Requirements
-	•	Deployment Steps
-	•	1. Create S3 Bucket
-	•	2. Static Website Hosting Configuration
-	•	3. CORS Configuration
-	•	4. Bucket Policy Configuration
-	•	5. Upload Static Website Files
-	•	6. Deploy CloudFormation Template
-	•	7. Post-Deployment Configurations
-	•	Permissions Overview
-	•	Lambda Function Variables
-	•	Summary
+---
 
-Project Overview
+## 📚 Table of Contents
 
-The goal of this project is to provide a centralized dashboard that monitors EC2 instances across multiple AWS accounts. The solution includes:
-	•	Amazon S3: Hosts a static website that displays the instance data.
-	•	AWS Lambda: Collects compliance data from EC2 instances periodically.
-	•	AWS CloudFormation: Automates the deployment of IAM roles, Lambda functions, and EventBridge rules across accounts.
+- [Project Overview](#project-overview)
+- [Requirements](#requirements)
+- [Deployment Steps](#deployment-steps)
+  1. [Create S3 Bucket](#1-create-s3-bucket)
+  2. [Static Website Hosting Configuration](#2-static-website-hosting-configuration)
+  3. [CORS Configuration](#3-cors-configuration)
+  4. [Bucket Policy Configuration](#4-bucket-policy-configuration)
+  5. [Upload Static Website Files](#5-upload-static-website-files)
+  6. [Deploy CloudFormation Template](#6-deploy-cloudformation-template)
+  7. [Post-Deployment Configurations](#7-post-deployment-configurations)
+- [Permissions Overview](#permissions-overview)
+- [Lambda Function Variables](#lambda-function-variables)
+- [Summary](#summary)
 
-Requirements
-	•	AWS Management Account: Used for creating and configuring the S3 bucket.
-	•	Permissions: Ability to create IAM roles, S3 buckets, Lambda functions, EventBridge rules, and perform CloudFormation deployments.
-	•	AWS CLI or AWS Management Console: For performing configurations and deployments.
-	•	S3 Bucket Naming Convention: The bucket must be named using the format:
-swoec2monitoringwebapp-{client-name}
-	•	Static Website Hosting: Must be enabled on the S3 bucket with proper CORS and bucket policies.
+---
 
-Deployment Steps
+## 📊 Project Overview
 
-1. Create S3 Bucket
-	•	Create the Bucket: In your management account, create an S3 bucket named using the convention:
-swoec2monitoringwebapp-{client-name}
-	•	Public Access: Make the bucket public by unchecking the “Block Access” box.
-	•	Enable Static Website Hosting: Turn on static website hosting for the bucket.
+The goal of this project is to provide a centralized dashboard to monitor EC2 instances across multiple AWS accounts. The solution consists of:
 
-2. Static Website Hosting Configuration
-	•	Index Document: Set index.html as the index document.
-	•	Error Document: Set error.html as the error document.
+- **Amazon S3:** Hosting a static website to display instance data.
+- **AWS Lambda:** Collecting compliance data periodically.
+- **AWS CloudFormation:** Automating the deployment of IAM roles, Lambda functions, and EventBridge rules.
 
-3. CORS Configuration
+---
 
-Add the following CORS configuration to the bucket permissions:
+## ✅ Requirements
 
+Before deploying, ensure you have:
+
+- An **AWS Management Account** for creating and configuring the S3 bucket.
+- Appropriate **permissions** to create IAM roles, S3 buckets, Lambda functions, EventBridge rules, and perform CloudFormation deployments.
+- **AWS CLI** or access to the AWS Management Console.
+- An S3 bucket name following the convention:  
+  `swoec2monitoringwebapp-{client-name}`
+- **Static Website Hosting** enabled on S3 with proper CORS and bucket policies.
+
+---
+
+## 🔧 Deployment Steps
+
+### 1. Create S3 Bucket 📦
+
+- **Create the Bucket:**  
+  In your management account, create an S3 bucket named using the format:  
+  `swoec2monitoringwebapp-{client-name}`
+- **Public Access:**  
+  Make the bucket public by unchecking the "Block Access" box.
+- **Enable Static Website Hosting:**  
+  Activate static website hosting for the bucket.
+
+---
+
+### 2. Static Website Hosting Configuration 🌐
+
+- **Index Document:** Set to `index.html`.
+- **Error Document:** Set to `error.html`.
+
+---
+
+### 3. CORS Configuration 🔄
+
+In the bucket permissions, add the following CORS configuration:
+
+```json
 [
     {
         "AllowedHeaders": ["*"],
@@ -56,97 +79,3 @@ Add the following CORS configuration to the bucket permissions:
         "ExposeHeaders": []
     }
 ]
-
-4. Bucket Policy Configuration
-
-Initially, configure the bucket policy to allow public GET access. For example:
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::swoec2monitoringwebapp-{client-name}/*"
-        }
-    ]
-}
-
-	Note: After deploying the CloudFormation template, update the bucket policy to also allow the Lambda functions to write data to the bucket:
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::swoec2monitoringwebapp-{client-name}/*"
-        },
-        {
-            "Effect": "Allow",
-            "Principal": { "AWS": "arn:aws:iam::{account-id}:role/SWOEC2MonitoringAppRole" },
-            "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::swoec2monitoringwebapp-{client-name}/*"
-        }
-        // Additional statements for other accounts...
-    ]
-}
-
-5. Upload Static Website Files
-
-Upload the following files to your S3 bucket:
-	•	ec2monitoringwebcft.yaml (CloudFormation template)
-	•	index.html
-	•	script.js
-	•	styles.css
-
-Important: Verify that in script.js (e.g., on line 3), you reference the correct file names for the JSON data generated by the Lambda functions. For example:
-
-const fileNames = [
-    'instance-info-123456789012-us-east-1.json',
-    'instance-info-098765432123-sa-east-1.json',
-    // Additional entries for other accounts...
-];
-
-6. Deploy CloudFormation Template
-
-Deploy the CloudFormation template (cftec2monitoring.yaml) to provision resources across multiple accounts using Stack Set.
-	•	Stack Name: SWOEC2MonitoringAppStack
-	•	Parameters: Specify the S3 bucket name and management account details.
-
-This template creates the necessary IAM roles, Lambda functions, and EventBridge rules to monitor EC2 instances.
-
-7. Post-Deployment Configurations
-
-After the CloudFormation deployment, perform these tasks in each account:
-	•	Set Environment Variables:
-In the Lambda function configuration, set the ACCOUNT_NAME variable to a friendly name for the AWS account.
-	•	Test the Lambda Function:
-Create a test event with default values and execute the function once to generate the initial JSON data file in the S3 bucket.
-
-Permissions Overview
-	•	S3 Bucket Permissions:
-Ensure that the bucket policy allows:
-	•	Public access for s3:GetObject.
-	•	IAM roles (from each monitored account) the permission to perform s3:PutObject.
-	•	IAM Roles:
-Each AWS account must have the SWOEC2MonitoringAppRole role with the necessary permissions to invoke the Lambda function and interact with S3.
-
-Lambda Function Variables
-	•	BUCKET_NAME:
-The S3 bucket name where the data is uploaded (provided as a CloudFormation parameter).
-	•	ACCOUNT_NAME:
-A friendly name for the AWS account that is used in the dashboard.
-
-Summary
-
-By following these instructions, you will successfully deploy and configure the AWS EC2 Monitoring Web Application. The application leverages:
-	•	Amazon S3 for static website hosting,
-	•	AWS Lambda for data collection,
-	•	AWS CloudFormation for automated multi-account resource deployment.
-
-Each step, especially those involving permissions and bucket configurations, is critical for ensuring a smooth deployment process.
-
-Feel free to open issues or submit pull requests if you have suggestions or improvements.
