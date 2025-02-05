@@ -82,6 +82,8 @@ In the bucket permissions, add the following CORS configuration:
     }
 ]
 
+---
+
 ### 4. Bucket Policy Configuration 🔒
 
 Initial Policy: Allow public GET access:
@@ -119,7 +121,9 @@ Initial Policy: Allow public GET access:
     ]
 }
 
-5. Upload Static Website Files 📤
+---
+
+### 5. Upload Static Website Files 📤
 
 Upload the following files to your S3 bucket:
 	•	ec2monitoringwebcft.yaml (CloudFormation template)
@@ -135,7 +139,9 @@ const fileNames = [
     // Additional entries for other accounts...
 ];
 
-6. Deploy CloudFormation Template ☁️
+---
+
+### 6. Deploy CloudFormation Template ☁️
 
 Deploy the CloudFormation template (cftec2monitoring.yaml) using Stack Set:
 	•	Stack Name: SWOEC2MonitoringAppStack
@@ -143,7 +149,9 @@ Deploy the CloudFormation template (cftec2monitoring.yaml) using Stack Set:
 
 This template will create the necessary IAM roles, Lambda functions, and EventBridge rules.
 
-7. Post-Deployment Configurations 🔄
+---
+
+### 7. Post-Deployment Configurations 🔄
 
 For each AWS account where resources were deployed:
 	•	Environment Variables:
@@ -151,7 +159,9 @@ In the Lambda function settings, set the ACCOUNT_NAME environment variable to a 
 	•	Test the Lambda Function:
 Create a test event (with default values) and run the function once to generate the initial JSON data file in the S3 bucket.
 
-🔐 Permissions Overview
+---
+
+## 🔐 Permissions Overview
 	•	S3 Bucket Permissions:
 	•	Public access: s3:GetObject
 	•	IAM roles (from each monitored account) require s3:PutObject permissions.
@@ -164,7 +174,9 @@ The name of the S3 bucket where data is uploaded (configured via CloudFormation)
 	•	ACCOUNT_NAME:
 A friendly name for the AWS account used in the dashboard.
 
-📌 Summary
+---
+
+## 📌 Summary
 
 Following these steps will ensure a successful deployment of the AWS EC2 Monitoring Web Application:
 	•	Amazon S3: Hosts the static website.
