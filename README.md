@@ -186,7 +186,3 @@ Following these steps will ensure a successful deployment of the AWS EC2 Monitor
 By carefully following the instructions—especially those regarding permissions and bucket configurations—you’ll achieve a robust and scalable monitoring solution.
 
 Feel free to open an issue or submit a pull request if you have any suggestions or improvements. Happy monitoring! 😄
-
----
-
-You can copy this into your repository's `README.md` file and adjust details as needed. Enjoy!
