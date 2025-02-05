@@ -1,5 +1,3 @@
-Below is an example of a README.md file based on your Confluence documentation. You can adjust any details as needed:
-
 AWS EC2 Monitoring Web Application
 
 This repository contains the code, CloudFormation templates, and documentation required to deploy the AWS EC2 Monitoring Web Application. This solution collects EC2 instance compliance data from multiple AWS accounts and displays it via a static website hosted on Amazon S3.
