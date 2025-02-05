@@ -72,7 +72,7 @@ Before deploying, ensure you have:
 
 In the bucket permissions, add the following CORS configuration:
 
-```json
+
 [
     {
         "AllowedHeaders": ["*"],
@@ -82,7 +82,7 @@ In the bucket permissions, add the following CORS configuration:
     }
 ]
 
-4. Bucket Policy Configuration 🔒
+### 4. Bucket Policy Configuration 🔒
 
 Initial Policy: Allow public GET access:
 
